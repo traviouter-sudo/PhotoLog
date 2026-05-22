@@ -16,7 +16,16 @@
 
 ## 快速开始
 
-### 方式一：XcodeGen 生成项目（推荐）
+### 方式一：直接安装（推荐 👆 右侧 Releases 下载）
+
+> 无需 Xcode，无需编译，下载即用
+
+1. 点击页面右侧 **Releases** 区域中的 `PhotoLog-v1.0.0.dmg` 下载
+2. 双击 `.dmg` 文件
+3. 将 **PhotoLog.app** 拖入 **Applications** 文件夹
+4. 从 Launchpad 或 Applications 打开即可使用
+
+### 方式二：XcodeGen 生成项目（开发者）
 
 ```bash
 # 1. 安装 XcodeGen
@@ -148,3 +157,13 @@ PhotoLog/
 
 - [x] 20/20 任务完成 ✅
 - 详见 `ai/memory-bank/tasks/photolog-tasklist.md`
+
+---
+
+## 🤖 关于本项目
+
+> 本项目从 **第一行代码到最后发布**，全程由 AI Agent（WorkBuddy）辅助生成、调试、打包、上传至 GitHub。
+>
+> - 全部源码（29 个 Swift 文件，约 5000 行）基于 SwiftUI + SwiftData 编写
+> - 包含完整的 Xcode 项目配置（XcodeGen / project.yml）
+> - Release 构建、DMG 打包、Git 版本管理、SSH 密钥配置、GitHub Releases 发布均通过 Agent 协作完成
