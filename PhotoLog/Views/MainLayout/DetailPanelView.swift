@@ -9,9 +9,12 @@ struct DetailPanelView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                // 照片预览小图
-                photoPreview(selectedPhoto)
+            VStack(alignment: .leading, spacing: 12) {
+                // 文件名
+                Text(selectedPhoto.fileName)
+                    .font(.subheadline.bold())
+                    .lineLimit(1)
+                    .truncationMode(.middle)
 
                 Divider()
 
@@ -44,31 +47,6 @@ struct DetailPanelView: View {
             }
             .padding()
         }
-    }
-
-    // MARK: - 照片预览
-    @ViewBuilder
-    private func photoPreview(_ photo: Photo) -> some View {
-        Group {
-            if let thumbnailData = photo.thumbnail,
-               let nsImage = ThumbnailCacheService.shared.imageFromData(thumbnailData, photoID: photo.id) {
-                Image(nsImage: nsImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: 180)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .shadow(radius: 4)
-            } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(.quaternary)
-                    .frame(height: 120)
-                    .overlay {
-                        Image(systemName: "photo")
-                            .foregroundStyle(.secondary)
-                    }
-            }
-        }
-        .frame(maxWidth: .infinity)
     }
 
     // MARK: - 可折叠区域

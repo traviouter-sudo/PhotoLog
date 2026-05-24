@@ -21,6 +21,7 @@
 		57A7BA1DEA3BD48F3EEB7407 /* RatingSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FFFBB7DCB7FF3E3767A874 /* RatingSectionView.swift */; };
 		5B7877B0560406C9D8CA99A5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123D5E3136D878A048376FC9 /* SettingsView.swift */; };
 		670851496B6249ACFA45E8B4 /* OfflineIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8F773AE4DEFC4CFC2C78B9 /* OfflineIndicatorView.swift */; };
+		75B3E07291CECAF32434340B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82E3DA23A2AC674376F24C3F /* Localizable.strings */; };
 		8223DA0950635BE12D4D254C /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB6C9B010058EF1B171983 /* SidebarView.swift */; };
 		83812933693760AD02C954BA /* AnalysisSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5445E5EFA51137A3158AD6FB /* AnalysisSectionView.swift */; };
 		851B99A10345046DF5128B12 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2351227111479622A7BC20C0 /* Tag.swift */; };
@@ -45,6 +46,7 @@
 		2351227111479622A7BC20C0 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		23CE548A411FDC8C123E6600 /* PhotoLog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoLog.entitlements; sourceTree = "<group>"; };
 		2934F2C89808282978606955 /* ThumbnailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
+		2A46D0614FB3C216195C5474 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2ABB6C9B010058EF1B171983 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		320BBCF36D106201D70A5F33 /* PhotoNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoNote.swift; sourceTree = "<group>"; };
 		3D3A9A58E58E4911C52A08CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				4F0B64E01E6D7DEA21354B54 /* Assets.xcassets */,
+				82E3DA23A2AC674376F24C3F /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -282,11 +285,11 @@
 				};
 			};
 			buildConfigurationList = 154A7EB6FF90FC5742796EA5 /* Build configuration list for PBXProject "PhotoLog" */;
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				en,
+				"zh-Hans",
 			);
 			mainGroup = 45CDA9C81229C86BA4B71962;
 			minimizedProjectReferenceProxies = 1;
@@ -306,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23A5BC11C404248E5815087E /* Assets.xcassets in Resources */,
+				75B3E07291CECAF32434340B /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +353,17 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		82E3DA23A2AC674376F24C3F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A46D0614FB3C216195C5474 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		4D1B4770A8D562AC418F17F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -358,14 +373,13 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photolog.app;
 				PRODUCT_NAME = PhotoLog;
 				SDKROOT = macosx;
@@ -418,6 +432,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDevelopmentRegion = "zh-Hans";
+				INFOPLIST_KEY_CFBundleLocalizations = (
+					"zh-Hans",
+					en,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -481,6 +501,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDevelopmentRegion = "zh-Hans";
+				INFOPLIST_KEY_CFBundleLocalizations = (
+					"zh-Hans",
+					en,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -501,14 +527,13 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photolog.app;
 				PRODUCT_NAME = PhotoLog;
 				SDKROOT = macosx;

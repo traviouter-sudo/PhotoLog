@@ -43,11 +43,6 @@ struct ContentView: View {
                     )
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    SearchFilterView(viewModel: galleryViewModel)
-                }
-            }
         } detail: {
             // 右栏：详情面板
             Group {
@@ -147,15 +142,14 @@ struct ContentView: View {
     private func handleImportResult(_ result: Result<[URL], Error>) {
         switch result {
         case .success(let urls):
-            let paths = urls.map { $0.path }
-            importPhotosFromPaths(paths)
+            importPhotosFromURLs(urls)
         case .failure(let error):
             print("导入失败: \(error)")
         }
     }
 
     private func handleDrop(providers: [NSItemProvider]) {
-        var paths: [String] = []
+        var urls: [URL] = []
         let group = DispatchGroup()
 
         for provider in providers {
@@ -163,24 +157,24 @@ struct ContentView: View {
             provider.loadItem(forTypeIdentifier: "public.file-url", options: nil) { data, _ in
                 if let data = data as? Data,
                    let url = URL(dataRepresentation: data, relativeTo: nil) {
-                    paths.append(url.path)
+                    urls.append(url)
                 }
                 group.leave()
             }
         }
 
         group.notify(queue: .main) {
-            importPhotosFromPaths(paths)
+            importPhotosFromURLs(urls)
         }
     }
 
-    private func importPhotosFromPaths(_ paths: [String]) {
-        guard !paths.isEmpty else { return }
-        let total = paths.count
+    private func importPhotosFromURLs(_ urls: [URL]) {
+        guard !urls.isEmpty else { return }
+        let total = urls.count
         importProgress = (0, total)
 
         Task { @MainActor in
-            let photos = ImportService.importPhotos(at: paths, context: modelContext)
+            let photos = ImportService.importPhotos(from: urls, context: modelContext)
 
             for (index, photo) in photos.enumerated() {
                 importProgress = (index + 1, total)

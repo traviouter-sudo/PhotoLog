@@ -1,0 +1,40 @@
+// PhotoLog 简体中文本地化
+// 系统菜单标题由 macOS 自动根据 .lproj 文件夹提供翻译
+// 此文件用于应用内的自定义字符串
+
+/* 应用名称 */
+"CFBundleDisplayName" = "PhotoLog";
+
+/* 菜单 - 关于和设置 */
+"关于 PhotoLog" = "About PhotoLog";
+"设置..." = "Settings...";
+"偏好设置..." = "Preferences...";
+
+/* 菜单 - 文件 */
+"导入照片..." = "Import Photos...";
+
+/* 菜单 - 编辑 */
+"撤销" = "Undo";
+"重做" = "Redo";
+"剪切" = "Cut";
+"拷贝" = "Copy";
+"粘贴" = "Paste";
+"全选" = "Select All";
+"删除" = "Delete";
+
+/* 菜单 - 显示 */
+"显示详情面板" = "Show Detail Panel";
+
+/* 菜单 - 窗口 */
+"最小化" = "Minimize";
+"缩放" = "Zoom";
+
+/* 通用 */
+"隐藏 PhotoLog" = "Hide PhotoLog";
+"隐藏其他" = "Hide Others";
+"显示全部" = "Show All";
+"退出 PhotoLog" = "Quit PhotoLog";
+"关闭窗口" = "Close Window";
+"全部置于前面" = "Bring All to Front";
+"进入全屏幕" = "Enter Full Screen";
+"PhotoLog 帮助" = "PhotoLog Help";

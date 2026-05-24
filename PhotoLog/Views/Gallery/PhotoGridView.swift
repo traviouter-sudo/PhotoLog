@@ -19,6 +19,11 @@ struct PhotoGridView: View {
     @State private var photoToDelete: Photo?
     @State private var showDeleteConfirm = false
 
+    // 批量操作
+    @State private var isEditMode = false
+    @State private var multiSelectedIDs: Set<UUID> = []
+    @State private var showBatchDeleteConfirm = false
+
     /// 根据侧边栏选择和 GalleryViewModel 筛选条件过滤照片
     private var filteredPhotos: [Photo] {
         var result = allPhotos
@@ -67,9 +72,56 @@ struct PhotoGridView: View {
             }
         }
         .navigationTitle(navigationTitle)
+        .toolbar {
+            // 多选按钮 — 独立放置
+            ToolbarItem(placement: .automatic) {
+                if isEditMode {
+                    HStack(spacing: 8) {
+                        Button(multiSelectedIDs.count == filteredPhotos.count ? "取消全选" : "全选") {
+                            if multiSelectedIDs.count == filteredPhotos.count {
+                                multiSelectedIDs.removeAll()
+                            } else {
+                                multiSelectedIDs = Set(filteredPhotos.map(\.id))
+                            }
+                        }
+                        .disabled(filteredPhotos.isEmpty)
+
+                        Button("删除选中 (\(multiSelectedIDs.count))") {
+                            showBatchDeleteConfirm = true
+                        }
+                        .disabled(multiSelectedIDs.isEmpty)
+                        .tint(.red)
+
+                        Button("完成") {
+                            exitEditMode()
+                        }
+                        .keyboardShortcut(.escape, modifiers: [])
+                    }
+                } else {
+                    Button {
+                        isEditMode = true
+                    } label: {
+                        Label("多选", systemImage: "checklist")
+                    }
+                    .help("批量选择照片")
+                }
+            }
+
+            // 搜索 + 筛选
+            ToolbarItem(placement: .automatic) {
+                SearchFilterView(viewModel: viewModel)
+            }
+        }
+        .onChange(of: sidebarItem) { _, _ in
+            // 切换侧边栏时退出编辑模式
+            exitEditMode()
+        }
         .onDeleteCommand {
-            // Delete 键删除选中照片
-            if let photo = selectedPhoto {
+            if isEditMode {
+                if !multiSelectedIDs.isEmpty {
+                    showBatchDeleteConfirm = true
+                }
+            } else if let photo = selectedPhoto {
                 photoToDelete = photo
                 showDeleteConfirm = true
             }
@@ -90,6 +142,14 @@ struct PhotoGridView: View {
             } else {
                 Text("确认移除此照片？")
             }
+        }
+        .alert("批量删除确认", isPresented: $showBatchDeleteConfirm) {
+            Button("取消", role: .cancel) { }
+            Button("删除 \(multiSelectedIDs.count) 张照片", role: .destructive) {
+                batchDeleteSelected()
+            }
+        } message: {
+            Text("将 \(multiSelectedIDs.count) 张照片从照片库中移除？原文件不会被删除。")
         }
     }
 
@@ -156,18 +216,25 @@ struct PhotoGridView: View {
                 ForEach(Array(filteredPhotos.enumerated()), id: \.element.id) { index, photo in
                     PhotoGridItemView(
                         photo: photo,
-                        isSelected: selectedPhoto?.id == photo.id,
+                        isSelected: selectedPhoto?.id == photo.id && !isEditMode,
                         onDelete: {
                             photoToDelete = photo
                             showDeleteConfirm = true
-                        }
+                        },
+                        isMultiSelectMode: isEditMode,
+                        isMultiSelected: multiSelectedIDs.contains(photo.id)
                     )
                     .onTapGesture {
-                        selectedPhoto = photo
+                        if isEditMode {
+                            toggleMultiSelect(photo)
+                        } else {
+                            selectedPhoto = photo
+                        }
                     }
                     .onTapGesture(count: 2) {
-                        // 双击打开大图预览
-                        onDoubleTap?(filteredPhotos, index)
+                        if !isEditMode {
+                            onDoubleTap?(filteredPhotos, index)
+                        }
                     }
                 }
             }
@@ -197,5 +264,39 @@ struct PhotoGridView: View {
         modelContext.delete(photo)
 
         try? modelContext.save()
+    }
+
+    // MARK: - 批量操作
+
+    private func toggleMultiSelect(_ photo: Photo) {
+        if multiSelectedIDs.contains(photo.id) {
+            multiSelectedIDs.remove(photo.id)
+        } else {
+            multiSelectedIDs.insert(photo.id)
+        }
+    }
+
+    private func batchDeleteSelected() {
+        let photosToDelete = filteredPhotos.filter { multiSelectedIDs.contains($0.id) }
+        for photo in photosToDelete {
+            // 清除选中状态
+            if selectedPhoto?.id == photo.id {
+                selectedPhoto = nil
+            }
+            photo.tags.removeAll()
+            if let note = photo.note {
+                modelContext.delete(note)
+            }
+            ThumbnailCacheService.shared.removeCache(for: photo.id)
+            modelContext.delete(photo)
+        }
+        try? modelContext.save()
+        multiSelectedIDs.removeAll()
+        exitEditMode()
+    }
+
+    private func exitEditMode() {
+        isEditMode = false
+        multiSelectedIDs.removeAll()
     }
 }

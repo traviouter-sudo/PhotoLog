@@ -54,6 +54,9 @@ struct ParameterNoteEditor: View {
                         TextField("如 2026-04-22 14:30", text: dateTextBinding)
                             .textFieldStyle(.roundedBorder)
                             .font(.caption)
+                    } else if field.key == "sourceURL" {
+                        // 照片链接 — 可点击打开网址，带下划线
+                        sourceURLEditor
                     } else {
                         noteTextField(for: field.key, placeholder: field.placeholder)
                             .textFieldStyle(.roundedBorder)
@@ -84,6 +87,7 @@ struct ParameterNoteEditor: View {
         switch key {
         case "camera":         TextField(placeholder, text: $note.camera)
         case "lens":           TextField(placeholder, text: $note.lens)
+        case "filmStock":      TextField(placeholder, text: $note.filmStock)
         case "shutterSpeed":   TextField(placeholder, text: $note.shutterSpeed)
         case "aperture":       TextField(placeholder, text: $note.aperture)
         case "iso":            TextField(placeholder, text: $note.iso)
@@ -123,6 +127,40 @@ struct ParameterNoteEditor: View {
                 }
             }
         )
+    }
+
+    /// 照片链接编辑器 — 输入框 + 右侧跳转箭头
+    @ViewBuilder
+    private var sourceURLEditor: some View {
+        HStack(spacing: 4) {
+            TextField("如 https://...", text: $note.sourceURL)
+                .textFieldStyle(.roundedBorder)
+                .font(.caption)
+
+            if isValidURL(note.sourceURL) {
+                Button {
+                    if let url = URL(string: note.sourceURL) {
+                        NSWorkspace.shared.open(url)
+                    }
+                } label: {
+                    Image(systemName: "arrow.up.right")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .help("在浏览器中打开")
+            }
+        }
+    }
+
+    /// 判断字符串是否为有效 http/https URL
+    private func isValidURL(_ string: String) -> Bool {
+        guard let url = URL(string: string),
+              let scheme = url.scheme,
+              ["http", "https"].contains(scheme) else {
+            return false
+        }
+        return true
     }
 
     // MARK: - 自定义参数字段

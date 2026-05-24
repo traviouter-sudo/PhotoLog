@@ -5,8 +5,10 @@ import AppKit
 /// 缩略图生成服务
 /// 使用 ImageIO 高效生成缩略图，支持 RAW 格式
 final class ThumbnailService {
-    /// 目标缩略图尺寸（足够清晰，用于预览和学习）
-    static let thumbnailSize: CGFloat = 1200
+    /// 目标缩略图尺寸（长边的最大像素数）
+    /// - 设为 1600px：在 Retina 显示器网格视图(~500pt@2x=1000px)中足够清晰，
+    ///   同时避免对小于此尺寸的源图做无意义的放大（ImageIO 不会放大）
+    static let thumbnailSize: CGFloat = 1600
 
     /// 为照片异步生成缩略图
     @MainActor
@@ -64,6 +66,6 @@ final class ThumbnailService {
 
         let bitmapRep = NSBitmapImageRep(cgImage: cgImage)
         bitmapRep.size = NSSize(width: cgImage.width, height: cgImage.height)
-        return bitmapRep.representation(using: .jpeg, properties: [.compressionFactor: 0.92])
+        return bitmapRep.representation(using: .jpeg, properties: [.compressionFactor: 0.97])
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-/// 个人分析面板 - 可编辑的 5 个文本块
+/// 个人分析面板 - 整体想法 + 备注
 struct AnalysisSectionView: View {
     @Bindable var photo: Photo
     @Environment(\.modelContext) private var modelContext
@@ -38,34 +38,10 @@ struct AnalysisNoteEditor: View {
             )
 
             analysisBlock(
-                title: "优点",
-                icon: "hand.thumbsup",
-                text: $note.pros,
-                placeholder: "这张照片做得好的地方...",
-                accentColor: .green
-            )
-
-            analysisBlock(
-                title: "缺点 / 遗憾",
-                icon: "hand.thumbsdown",
-                text: $note.cons,
-                placeholder: "不满意或拍摄失误的地方...",
-                accentColor: .orange
-            )
-
-            analysisBlock(
-                title: "学习点",
-                icon: "book",
-                text: $note.learnings,
-                placeholder: "下次可以改进或借鉴的...",
-                accentColor: .purple
-            )
-
-            analysisBlock(
-                title: "后期处理备注",
-                icon: "slider.horizontal.3",
+                title: "备注",
+                icon: "pencil.line",
                 text: $note.postProcess,
-                placeholder: "记录后期处理流程（可选）...",
+                placeholder: "备注信息...",
                 accentColor: .secondary
             )
         }

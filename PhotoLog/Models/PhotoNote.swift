@@ -11,6 +11,7 @@ final class PhotoNote {
     // MARK: - 拍摄参数
     var camera: String          // 相机型号
     var lens: String            // 镜头
+    var filmStock: String       // 胶卷（如 Portra 400, Ektar 100）
     var shutterSpeed: String    // 快门速度 (如 "1/500s")
     var aperture: String        // 光圈 (如 "f/2.8")
     var iso: String             // ISO
@@ -52,6 +53,7 @@ final class PhotoNote {
         self.id = UUID()
         self.camera = ""
         self.lens = ""
+        self.filmStock = ""
         self.shutterSpeed = ""
         self.aperture = ""
         self.iso = ""
@@ -118,6 +120,7 @@ final class PhotoNote {
     static let allParameterKeys: [ParameterField] = [
         ParameterField(key: "camera", label: "相机", placeholder: "如 Canon R5"),
         ParameterField(key: "lens", label: "镜头", placeholder: "如 RF 85mm f/1.2"),
+        ParameterField(key: "filmStock", label: "胶卷", placeholder: "如 Portra 400"),
         ParameterField(key: "shutterSpeed", label: "快门速度", placeholder: "如 1/500s"),
         ParameterField(key: "aperture", label: "光圈", placeholder: "如 f/2.8"),
         ParameterField(key: "iso", label: "ISO", placeholder: "如 400"),

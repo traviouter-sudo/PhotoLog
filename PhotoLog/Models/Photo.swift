@@ -17,6 +17,8 @@ final class Photo {
     var thumbnail: Data?
     /// 文件是否离线（外置硬盘未连接）
     var isOffline: Bool
+    /// Security-Scoped Bookmark Data（用于 Sandbox 环境下重启后恢复文件访问权限）
+    var bookmarkData: Data?
     /// 星级评分 (1-5, 0 = 未评分)
     var rating: Int
     /// 是否收藏
@@ -30,7 +32,8 @@ final class Photo {
         filePath: String,
         fileName: String? = nil,
         thumbnail: Data? = nil,
-        isOffline: Bool = false
+        isOffline: Bool = false,
+        bookmarkData: Data? = nil
     ) {
         self.id = UUID()
         self.filePath = filePath
@@ -38,6 +41,7 @@ final class Photo {
         self.importDate = Date()
         self.thumbnail = thumbnail
         self.isOffline = isOffline
+        self.bookmarkData = bookmarkData
         self.rating = 0
         self.isFavorite = false
         self.tags = []
