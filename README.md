@@ -2,7 +2,7 @@
 
 摄影师的私人照片学习笔记本 — macOS 原生应用
 
-**v1.0.0** — [📥 点击下载安装包](https://github.com/traviouter-sudo/PhotoLog/releases/tag/v1.0.0)
+**v1.1.0** — [📥 点击下载安装包](https://github.com/traviouter-sudo/PhotoLog/releases/tag/v1.1.0)
 
 > 用 SwiftUI + SwiftData 构建，支持照片导入、EXIF 读取、标签管理、地图定位、三栏结构化位置输入等完整功能。
 
@@ -12,7 +12,7 @@
 
 > 无需 Xcode，无需编译，下载即用
 
-1. 下载 [`PhotoLog-v1.0.0.dmg`](https://github.com/traviouter-sudo/PhotoLog/releases/tag/v1.0.0)
+1. 下载 [`PhotoLog-v1.1.0.dmg`](https://github.com/traviouter-sudo/PhotoLog/releases/tag/v1.1.0)
 2. 双击 `.dmg` 文件
 3. 将 **PhotoLog.app** 拖入 **Applications** 文件夹
 4. 从 Launchpad 或 Applications 打开即可使用
@@ -75,9 +75,41 @@ PhotoLog/
 
 Swift 5.9+ · SwiftUI · SwiftData · ImageIO · MapKit · NSCache · XcodeGen · SPM
 
+## 更新日志
+
+### v1.1.0 (2026-05-24)
+
+#### 🖼️ 修复
+- 修复重启后照片缩略图模糊问题 — 通过 Security-Scoped Bookmark 持久化沙箱权限
+
+#### ✨ 新增功能
+- **多选批量删除** — 工具栏多选模式，支持一次性选中并删除多张照片
+- **搜索与筛选** — 照片网格工具栏集成搜索/筛选功能
+- **胶卷参数字段** — 拍摄参数面板新增「胶卷」字段（如 Portra 400、Ektar 100）
+- **来源链接编辑器** — 参数面板新增 URL 输入框，一键在浏览器中打开
+
+#### 🎨 界面优化
+- 完整菜单栏支持（文件/编辑/显示/窗口），含快捷键（⌘O 导入、⌥⌘D 切换详情面板等）
+- 分析面板精简：4 个区块 → 1 个备注区
+- 新增简体中文本地化
+
+---
+
+### v1.0.0 (2026-05-22)
+
+#### 🎉 首个正式发布
+- 照片导入（引用式存储，不复制文件）
+- EXIF 自动读取（光圈/快门/ISO/焦距等）
+- 三栏结构化位置输入 + 地图定位同步
+- 标签管理（10 色预设）+ 星级评分
+- 搜索筛选 + 外置硬盘离线检测
+- 大图预览（缩放/拖拽/切换）
+
+---
+
 ## 开发进度
 
-V1.0.0 正式发布 ✅ — 29 个 Swift 文件，约 5000 行代码
+V1.1.0 已发布 ✅
 
 ---
 
